@@ -15,10 +15,6 @@ body{
 	position: relative;
 	overflow: hidden;
 	border-radius: 7px;
-	opacity: .7;
-}
-.all{
-	opacity: 1;
 }
 .picture img{
     width: 600px;
