@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>轮播图</title>
+	<link rel="stylesheet" type="text/css" href="lunbotu.css">
+</head>
+<body>
+<!-- <img src="77.jpg" class=""> -->
+<div class="all">
+   <div class="picture" style="left:-600px;">  <!--行间样式-->
+   	<img src="55.jpg">
+	<img src="11.jpg">
+	<img src="22.jpg">
+	<img src="33.jpg">
+	<img src="44.jpg">
+	<img src="55.jpg">
+	<img src="11.jpg">
+   </div>
+
+   <div class="button">
+        <span name="1" class="on"></span>  
+   		<span name="2" class=""></span>
+        <span name="3" class=""></span>
+        <span name="4" class=""></span>
+        <span name="5" class=""></span>
+   </div>
+
+   <div class="jiantu">
+     <div class="left"></div>
+     <div class="right"></div>
+   </div>
+
+</div>
+
+<script type="text/javascript">
+	var myname=1;//小圆点
+	var block=document.getElementsByClassName("picture")[0];  //一块图片
+	var all=document.getElementsByClassName("all")[0]; 
+	var span=document.getElementsByTagName("span");
+	var leftbian=document.getElementsByClassName("left")[0];
+	var rightbian=document.getElementsByClassName("right")[0];
+	var enen=1;
+    var time2;
+
+	  function dodo(){
+	  	  time2=setInterval(function(){   //动画效果
+             	 rightbian.onclick();
+             },3000);
+	  }
+	  function stop(){
+	  	    clearInterval(time2);
+	  }
+
+	  //绑定事件
+	  function run(doing){
+             var time=10; 
+             var spead=doing/time;  //运动的速度
+             
+
+             enen=2;
+             var i=0;
+             var time1=setInterval(function(){   //动画效果
+             	 i++;
+                 block.style.left=parseInt(block.style.left)+spead+"px";
+                 if(i==time){
+                 	clearInterval(time1);
+                 	enen=1;
+                 }
+             },30)
+             if (parseInt(block.style.left)<-3000) {
+                block.style.left=(-600)+'px';
+             } 
+             else if (parseInt(block.style.left)>-600) {
+                block.style.left=(-3000)+'px';
+             } 
+             
+	  }
+
+      //给按钮加上点击事件  !!!
+	  for(var i=0;i<span.length;i++){
+	  	span[i].onclick=function(){
+	  		if(this.className=="on" ||enen==2)  //点击同一个按钮 不动
+	  			return;
+	  		
+           var my=parseInt(this.getAttribute("name"));//获取自定义属性
+           var move=-600*(my-myname);
+           myname=my;
+           run(move);
+           liang();
+         
+	  	}
+	  }
+
+      //选取小圆点
+    function liang(){
+    	for(var i=0;i<span.length;i++){
+    		if(span[i].className=="on"){
+    			span[i].className=""
+    			break;
+    		}
+    	}
+    	if(myname==0)
+    		myname=5;
+    	if(myname==6)
+    		myname=1;
+    	span[myname-1].className='on';
+    }
+
+	  rightbian.onclick=function(){
+	  	if(enen ==1)
+          {
+	  	   myname+=1;
+	  	   liang();
+	  	   run(-600);
+	    }
+	  }
+
+	  leftbian.onclick=function(){
+	  	if(enen ==1)
+         {
+	  	myname-=1;
+	  	liang();
+	  	run(+600);
+	   }
+	  }
+     all.onmouseover=stop;
+	 all.onmouseout=dodo;
+	 dodo();
+    
+</script>
+</body>
+</html>
